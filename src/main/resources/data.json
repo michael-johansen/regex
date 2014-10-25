@@ -1,0 +1,243 @@
+[
+    {
+        "name": "Email addresses",
+        "description": "Try to match valid email addresses with the most concise regex expression.",
+        "matchList": [
+            {
+                "matchType": "POSITIVE",
+                "test": "niceandsimple@example.com"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "very.common@example.com"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "a.little.lengthy.but.fine@dept.example.com"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "disposable.style.email.with+symbol@example.com"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "other.email-with-dash@example.com"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "user@localserver"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "Abc.example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "A@b@c@example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "a\"b(c)d,e:f;g<h>i[j\\k]l@example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "\"just\"not\"right@example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "this is\"not\\allowed@example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "this\\ still\\\"not\\\\allowed@example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "john..doe@example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "john.doe@example..com"
+            }
+        ]
+    },
+    {
+        "name": "Norwegian postal codes",
+        "description": "Norwegian Postal Codes are 4-digit codes, known in Norwegian as postnummer (literally \"post number\"). Posten, the Norwegian postal service, makes small modifications to the postal code system each year. In 1999 Posten made considerable changes to the postal codes in Norway. \nSince 18 March 1968 Norway has used a four-digit system: postnummersystemet. The numbers start at 00 and increase with the distance from the capital city Oslo. The highest post numbers are found in the county of Finnmark, near the Russian border, where they start with 95–99. The lowest post code in use is 0001 (Oslo), the highest 9991 (Båtsfjord).",
+        "matchList": [
+            {
+                "matchType": "POSITIVE",
+                "test": "0001"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "0560"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "7014"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "9991"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "0"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "05"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "056"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "A056"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "0560z"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "12 1"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "7014 7015"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": ""
+            }
+        ]
+    },
+    {
+        "name": "Floating point numbers",
+        "description": "In computing, floating point is a method of representing an approximation of a real number in a way that can support a trade-off between range and precision. A number is, in general, represented approximately to a fixed number of significant digits (the significand) and scaled using an exponent; the base for the scaling is normally two, ten, or sixteen.",
+        "matchList": [
+            {
+                "matchType": "POSITIVE",
+                "test": "1"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "2.0"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "3000.0"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "4 000.0"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "500 000.0"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "6 000 000.0"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "123.456789"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "+1.0"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "-1.0"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "1.0E5"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "0"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "john.doe@example.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "127.0.0.1"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "*1.0"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "12 34.0"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": ""
+            }
+        ]
+    },
+    {
+        "name": "URL",
+        "description": "Can you match URLs?",
+        "matchList": [
+            {
+                "matchType": "POSITIVE",
+                "test": "http://www.regexbuddy.com"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "http://www.regexbuddy.com/"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "http://www.regexbuddy.com/index.html"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "http://www.regexbuddy.com/index.html?source=library"
+            },
+            {
+                "matchType": "POSITIVE",
+                "test": "http://www.regexbuddy.com/index.html?source=library"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "http://mw1.google.com/mw-earth-vectordb/kml-samples/gp/seattle/gigapxl/$[level]/r$[y]_c$[x].jpg"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "www.regexbuddy.com"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "http://www.regexbuddy.com/<html>"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "http://www.regexbuddy.com/%"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "http://www.regexbuddy.com/./"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": "http://www.regexbuddy.com/../"
+            },
+            {
+                "matchType": "NEGATIVE",
+                "test": ""
+            }
+        ]
+    }
+
+]

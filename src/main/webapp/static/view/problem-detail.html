@@ -1,0 +1,23 @@
+<div>
+    <a href="/">back</a>
+
+    <div>
+        {{problem.self}}
+    </div>
+
+    <form>
+        <div>
+            <input ng-model="problem.name">
+        </div>
+        <div>
+            <textarea ng-model="problem.description"></textarea>
+        </div>
+        <ul ng-repeat="match in problem.matchList">
+            <li><select ng-model="match.matchType" ng-options="matchType for matchType in matchTypes"></select><input ng-model="match.test"></li>
+        </ul>
+
+        <button ng-click="addMatch()">Add match</button>
+        <button ng-click="save()">Save</button>
+
+    </form>
+</div>
