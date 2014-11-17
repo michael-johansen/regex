@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- If the query includes 'print-pdf', include the PDF print sheet -->
+    <script>
+        if (window.location.search.match(/print-pdf/gi)) {
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = 'css/print/pdf.css';
+            document.getElementsByTagName('head')[0].appendChild(link);
+        }
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <base target="_blank">
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+    <section>
+        <h1>RegExp - 101</h1>
+
+        <h3>Becoming a Regular Expression Wizard</h3>
+
+        <p>
+            <small>Created by <a href="https://plus.google.com/+MichaelJohansen83">Michael Johansen</a> / <a
+                    href="http://twitter.com/JavaMage">@JavaMage</a></small>
+        </p>
+    </section>
+
+    <section>
+        <section>
+            <h2>Poll time!</h2>
+
+            <h3>How much experience do you have with regular expressions?</h3>
+
+            <ul>
+                <li><b>None:</b> Never heard about it.</li>
+                <li><b>Some:</b> Have tried a few searches. <b>^.+@.+\..{2,5}$</b> matches emails right?</li>
+                <li><b>Regular:</b> Use it <b>(?=daily|often)</b> to <b>(?=solve|create)</b> problems.</li>
+                <li><b>Wizard:</b> "I can see the matrix". Let's match some HTML!</li>
+            </ul>
+        </section>
+
+
+        <section>
+            <h1>Do not match HTML with RegExp!</h1>
+            <a href="http://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags">You're
+                going to have a bad time..</a><br>
+            Read this at your own time.
+        </section>
+
+
+    </section>
+
+    <section>
+        <h2>Our agenda</h2>
+        <ol>
+            <li>Defining a regular expression</li>
+            <li>String literals</li>
+            <li>Character classes</li>
+            <li>Character shorthand</li>
+            <li>Quantifiers</li>
+            <li>Matching any character</li>
+            <li>Groups and back-references</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>
+            Defining a regular expression
+        </h2>
+        <h3>Definition</h3>
+        <pre><code>expression = /pattern/modifiers</code></pre>
+        <h3>JS</h3>
+        <pre><code class="javascript">var expression = /pattern/modifiers;
+expression.test("some input string");</code></pre>
+        <h3>Java</h3>
+        <pre><code class="java">Pattern expression = Pattern.compile("pattern", modifierFlags);
+expression.matcher("some input string").find();</code></pre>
+    </section>
+
+
+    <section>
+        <h2>
+            String literals
+        </h2>
+        <p>
+            String literals can be used to match strings. No sighing please&hellip;
+        </p>
+        <pre><code>/SomeString/</code></pre>
+        <p>Will match <code>SomeString</code></p>
+
+        <a href="http://regex101.com/r/eB2rG4/2">Trivial example</a>
+    </section>
+    <section>
+        <section>
+            <h2>Character classes</h2>
+            <p>Time to introduce some magic. Character classes is a flexible way to define arbitrary wildcards in RegExp</p>
+            <pre><code>CharacterClass = [arbitrary characters or range of characters]</code></pre>
+            <h3>Example</h3>
+            <pre><code>/f[aui]n/</code></pre>
+            <p>Will match <code>fan</code>, <code>fun</code>, <code>fin</code>, but not <code>fen</code>, <code>fyn</code></p>
+
+            <a href="http://regex101.com/r/eB2rG4/4">Example</a>
+        </section>
+        <section>
+            <h2>Ranges of characters</h2>
+            <p>Instead of specifying each and every character that should match we can use ranges.</p>
+            <pre><code>/[0123456789abcdef]/ == /[0-9a-f]/</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/5">Example</a>
+        </section>
+        <section>
+            <h2>Excluding characters</h2>
+            <p>We can also specify characters that the class should not match.</p>
+            <pre><code>String not followed by character 'x' == /string[^x]/</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/6">Example</a>
+        </section>
+    </section>
+
+    <section>
+        <section>
+            <h2>
+                Character shorthand
+            </h2>
+            <p>
+                Some common character classes have already been defined. And these are usually a bit safer to use because they've been tried and tested by many.<br>
+                <b>Do not reinvent the wheel!</b>
+            </p>
+
+        </section>
+        <section>
+            <table style="width: 100%">
+            <tr><td>\d</td><td><pre><code>[0-9]</code></pre></td></tr>
+            <tr><td>\D</td><td><pre><code>[^0-9]</code></pre></td></tr>
+            <tr><td>\s</td><td><pre><code>[ \t\n\x0B\f\r]</code></pre></td></tr>
+            <tr><td>\S</td><td><pre><code>[^\s]</code></pre></td></tr>
+            <tr><td>\w</td><td><pre><code>[a-zA-Z_0-9]</code></pre></td></tr>
+            <tr><td>\W</td><td><pre><code>[^\w]</code></pre></td></tr>
+        </table>
+            <p>Now we can simplify our pattern a bit. PS! There are other shorthands, but these are the ones you need to know!</p>
+            <a href="http://regex101.com/r/eB2rG4/8">Example</a>
+        </section>
+
+        <section>
+            <h2>Non-consuming control characters</h2>
+            <table style="width: 100%">
+                <tr><td>\b</td><td><pre><code>word boundrary</code></pre></td></tr>
+                <tr><td>\B</td><td><pre><code>[^\b]</code></pre></td></tr>
+                <tr><td>^</td><td><pre><code>Start of line</code></pre></td></tr>
+                <tr><td>$</td><td><pre><code>End of line</code></pre></td></tr>
+            </table>
+            <a href="http://regex101.com/r/eB2rG4/16">Example</a>
+        </section>
+    </section>
+
+
+    <section>
+        <section>
+            <h2>Quantifiers</h2>
+            <p>Some of our examples have been a bit contrived until now. Much of the power in RegExp is revealed when you use quantifiers.</p>
+            <pre><code>/a{0,1}/ //zero or one times</code></pre>
+            <pre><code>/a{0,}/ //zero or more times</code></pre>
+            <pre><code>/a{1,}/ //one or more times</code></pre>
+            <pre><code>/a{n, m}/ // between n and m times (inclusive)</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/15">Example</a>
+        </section>
+        <section>
+            <h2>Common quantifiers have shorthands</h2>
+            <pre><code>/a{0,1}/ == /a?/ //zero or one times</code></pre>
+            <pre><code>/a{0,}/ == /a*/ //zero or more times</code></pre>
+            <pre><code>/a{1,}/ == /a+/ //one or more times</code></pre>
+            <p>Let's simplify...</p>
+            <a href="http://regex101.com/r/eB2rG4/17">Example (Less precise)</a>
+        </section>
+
+        <section>
+            TODO: Greedy/lazy/possessive
+        </section>
+
+        <section>
+            <h2>Alternations</h2>
+            <p>Our expression is missing a vital part right now. We don't match dashes, just optional spaces right now. We could do:</p>
+            <pre><code>/\s?-?/</code></pre>
+            <p>But what if we required a space or dash to be present</p>
+            <pre><code>/SomeText|OtherText/ // mathces SomeText or OtherText</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/19">Example</a>
+        </section>
+    </section>
+
+
+    <section>
+        <h2>Matching any character</h2>
+        <pre><code>.</code></pre>
+        <p>Dot matches any character (wild card), can also match newlines depending on modifiers (dotall).</p>
+        <a href="http://regex101.com/r/eB2rG4/12">Example (not matching new line)</a>
+        <a href="http://regex101.com/r/eB2rG4/13">Example (matching new line)</a>
+    </section>
+
+    <section>
+        <h2>You know more about RegExp now than most people!</h2>
+        <p>Most(?) people can combine string literals, wildcards and at least one quantifier to do simple matching.</p>
+        <pre><code>/Wiz.*d/ // Are you a wizard yet?</code></pre>
+
+        <aside class="notes">Break?</aside>
+    </section>
+
+    <section>
+        <section>
+            <h2>Groups and back-references</h2>
+
+            <p>What we've been trough so far is interesting, but not really useful besides validation. To really utilize
+                RegExp we need to extract sub-patterns and grouping.</p>
+            <pre><code>/^(\d+\.?){4}$/</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/20">Example</a>
+        </section>
+
+        <section>
+            <p>Our last solution works, but isn't very flexible. We want to extract a group per "byte".</p>
+            <pre><code>/^(\d+).(\d+).(\d+).(\d+)$/</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/21">Example</a>
+        </section>
+
+        <section>
+            <h2>Warning: Advanced example</h2>
+            <p>We should be ready for this now</p>
+            <pre><code>
+/^
+(25[0-5]|2[0-4]\d|1?\d{1,2}|)\.
+(25[0-5]|2[0-4]\d|1?\d{1,2}|)\.
+(25[0-5]|2[0-4]\d|1?\d{1,2}|)\.
+(25[0-5]|2[0-4]\d|1?\d{1,2}|)
+$/</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/22">Example</a>
+        </section>
+    </section>
+
+    <section>
+        <h1>THE END</h1>
+
+        <h3>BY Michael Johansen / Michael.Johansen at Ciber.com</h3>
+    </section>
+
+</div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Parallax scrolling
+        // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+        // parallaxBackgroundSize: '2100px 900px',
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function () {
+                return !!document.body.classList;
+            } }
+        ]
+    });
+
+</script>
+
+</body>
+</html>
