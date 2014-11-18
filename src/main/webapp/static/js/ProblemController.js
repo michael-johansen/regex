@@ -8,15 +8,21 @@ angular.module('ProblemDetailControllerModule', ['ProblemServiceModule']).contro
     'ProblemDetailController',
     ['$scope', 'ProblemService', '$routeParams', function ($scope, problemService, $routeParams) {
         $scope.matchTypes =  ['POSITIVE','NEGATIVE'];
+        $scope.problem = {};
+        $scope.problem.matchList = [];
+
         $scope.save = function(){
             $scope.problem.$save()
         }
         $scope.addMatch = function(){
+            $scope.problem
             $scope.problem.matchList.push({});
         }
 
-        $scope.problem = problemService.problem.get({
-            problemId: $routeParams.problemId
-        });
+        if("new" !== $routeParams.problemId){
+            $scope.problem = problemService.problem.get({
+                problemId: $routeParams.problemId
+            });
+        }
     }]);
 

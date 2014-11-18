@@ -5,12 +5,15 @@
         {{problem.self}}
     </div>
 
-    <form>
-        <div>
-            <input ng-model="problem.name">
+    <form role="form">
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control" ng-model="problem.name">
         </div>
-        <div>
-            <textarea ng-model="problem.description"></textarea>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea class="form-control"
+                      ng-model="problem.description"></textarea>
         </div>
         <ul ng-repeat="match in problem.matchList">
             <li><select ng-model="match.matchType" ng-options="matchType for matchType in matchTypes"></select><input ng-model="match.test"></li>
