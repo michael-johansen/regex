@@ -202,7 +202,14 @@ expression.matcher("some input string").find();</code></pre>
         </section>
 
         <section>
-            TODO: Greedy/lazy/possessive
+            <h2>Quantifiers are greedy by default</h2>
+
+            <p>The expression will try to swallow as much text as possible, then scale back until it get a valid
+                match. This is best shown with an example</p>
+            <pre><code>/\d*/ // as big as possible</code></pre>
+            <pre><code>/\d*?/ // as small as possible</code></pre>
+
+            <a href="http://regex101.com/r/eB2rG4/32">Example</a>
         </section>
 
         <section>
@@ -236,7 +243,7 @@ expression.matcher("some input string").find();</code></pre>
         <section>
             <h2>Groups and back-references</h2>
 
-            <p>What we've been trough so far is interesting, but not really useful besides validation. To really utilize
+            <p>What we've been trough so far is interesting, but not really useful besides for validation. To really utilize
                 RegExp we need to extract sub-patterns and grouping.</p>
             <pre><code>/^(\d+\.?){4}$/</code></pre>
             <a href="http://regex101.com/r/eB2rG4/20">Example</a>
@@ -251,16 +258,95 @@ expression.matcher("some input string").find();</code></pre>
         <section>
             <h2>Warning: Advanced example</h2>
             <p>We should be ready for this now</p>
-            <pre><code>
-/^
-(25[0-5]|2[0-4]\d|1?\d{1,2}|)\.
-(25[0-5]|2[0-4]\d|1?\d{1,2}|)\.
-(25[0-5]|2[0-4]\d|1?\d{1,2}|)\.
-(25[0-5]|2[0-4]\d|1?\d{1,2}|)
+            <pre><code>/^
+(25[0-5]|2[0-4]\d|1?\d{1,2})\.
+(25[0-5]|2[0-4]\d|1?\d{1,2})\.
+(25[0-5]|2[0-4]\d|1?\d{1,2})\.
+(25[0-5]|2[0-4]\d|1?\d{1,2})
 $/</code></pre>
-            <a href="http://regex101.com/r/eB2rG4/22">Example</a>
+            <a href="http://regex101.com/r/eB2rG4/23">Example</a>
+        </section>
+
+        <section>
+            <p>Decomposed</p>
+            <pre><code>expression = /(g1).(g2).(g3).(g4)/
+gn = 25[0-5] | 2[0-4]\d | 1?\d{1,2}</code></pre>
+        </section>
+
+        <section>
+            <h2>Non-capturing groups</h2>
+            <p>What if we don't want to capture some specific groups?</p>
+
+            <pre><code>/^
+(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.
+(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.
+(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.
+(25[0-5]|2[0-4]\d|1?\d{1,2})
+$/</code></pre>
+
+            <a href="http://regex101.com/r/eB2rG4/24">Example</a>
+        </section>
+
+        <section>
+            <h2>Non-capturing groups (simplified)</h2>
+            <pre><code>/^
+(?:(?:25[0-5]|2[0-4]\d|1?\d{1,2})\.){3}
+(25[0-5]|2[0-4]\d|1?\d{1,2})
+$/</code></pre>
+
+            <a href="http://regex101.com/r/eB2rG4/25">Example</a>
+        </section>
+
+        <section>
+            <h2>
+                Back-references
+            </h2>
+
+            <p>If we want to match repeating patterns we can use back-references. Try to match all double letters in a
+                text.</p>
+            <pre><code>/(\w)\g1/g</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/26">Example</a>
+        </section>
+
+        <section>
+            <h2>Look ahead (positive)</h2>
+            <p>What if we want to match text before a criteria.</p>
+            <pre><code>/\b\w+?(?= was)/g</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/28">Example</a>
+        </section>
+
+        <section>
+            <h2>Look ahead (negative)</h2>
+            <p>What if we want to exclude text before a criteria.</p>
+            <pre><code>/\b\w+?\b(?! was)/g</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/29">Example</a>
+        </section>
+
+        <section>
+            <h2>Look behind is similar</h2>
+            <pre><code>/(?<=\bthe )\b\w+?\b/g
+/(?<=\bthe )\b\w+?\b/g</code></pre>
+            <a href="http://regex101.com/r/eB2rG4/30">Example (positive)</a>
+            <a href="http://regex101.com/r/eB2rG4/31">Example (negative)</a>
         </section>
     </section>
+
+    <section>
+        <section>
+            <h2>No more theory</h2>
+
+            <p>Some practical (?) usages of all this.</p>
+        </section>
+
+        <section>
+            <h2>Modifying text files</h2>
+        </section>
+
+        <section>
+            <h2>Custom refactorings</h2>
+        </section>
+    </section>
+
 
     <section>
         <h1>THE END</h1>

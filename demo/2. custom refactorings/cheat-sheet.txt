@@ -1,0 +1,2 @@
+public void set(.*)\((.*)\) \{(\s*.*\s*)\}
+public Person with$1($2){$3\treturn this;\n\t}
